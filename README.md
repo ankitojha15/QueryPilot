@@ -14,4 +14,4 @@ Ask analytics questions in plain English, get answers with SQL + charts. Unsafe 
 - APIs: `/query`, `/audit`
 
 ## Tech Stack
-FastAPI, LangGraph, Postgres, Redis, SQLAlchemy, Groq, Docker
+FastAPI,Langchain , LangGraph, Postgres, Redis, SQLAlchemy, Groq, Docker
