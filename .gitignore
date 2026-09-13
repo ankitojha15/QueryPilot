@@ -1,0 +1,4 @@
+.env
+qpenv/
+
+__pycache__
