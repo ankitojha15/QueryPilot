@@ -1,0 +1,15 @@
+# Runs Postgres + Redis for local development.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: pilot
+      POSTGRES_PASSWORD: pilot
+      POSTGRES_DB: pilot
+    ports:
+      - "5432:5432"
+
+  cache:
+    image: redis:7
+    ports:
+      - "6379:6379"
