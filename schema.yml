@@ -2,7 +2,7 @@
 
 tables:
   customers:
-    allowed_columns: [id, org_id, name, city, created_at]
+    allowed_columns: [id, org_id, name, city, state, created_at]
     pii_columns: [email]
     # email is PII, so it is not in allowed list
 
