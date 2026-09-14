@@ -1,0 +1,24 @@
+# Rule-book for QueryPilot. Agent can only query inside this file.
+
+tables:
+  customers:
+    allowed_columns: [id, org_id, name, city, created_at]
+    pii_columns: [email]
+    # email is PII, so it is not in allowed list
+
+  orders:
+    allowed_columns: [id, org_id, customer_id, product_id, amount, status, created_at]
+    pii_columns: []
+
+  products:
+    allowed_columns: [id, org_id, name, price]
+    pii_columns: []
+
+joins:
+  - orders.customer_id = customers.id
+  - orders.product_id = products.id
+
+rules:
+  - only_select: true
+  - limit_compulsory: 200
+  - org_id_filter_compulsory: true
