@@ -7,11 +7,11 @@
 <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-<!-- Full screen stage. -->
+<!-- Aurora stage. -->
 <div class="screen">
-<!-- Soft light spots. -->
-<div class="glow g1"></div>
-<div class="glow g2"></div>
+<div class="aurora a1"></div>
+<div class="aurora a2"></div>
+<div class="dots-bg"></div>
 
 <div class="wrap">
 <!-- Brand header. -->
@@ -19,7 +19,6 @@
 <div class="logo">🧭</div>
 <h1>QueryPilot</h1>
 <p>Ask in English, get safe SQL.</p>
-<!-- Trust pills. -->
 <div class="pills">
 <span class="pill">✓ Safe SQL</span>
 <span class="pill">⚡ Redis Cache</span>
@@ -27,7 +26,7 @@
 </div>
 </header>
 
-<!-- Main glass card. -->
+<!-- Main card. -->
 <main class="card">
 <h2>✨ Try examples</h2>
 <!-- 5 grey chips, same shade. -->
@@ -44,6 +43,7 @@
 <input id="q" type="text" placeholder="Ask question..." onkeydown="if(event.key==='Enter')ask()" />
 <button id="ask" onclick="ask()">Ask →</button>
 </div>
+<p class="hint">Press <b>Enter</b> to run • Safe SELECT only • org_id auto-safe</p>
 
 <!-- Clarify buttons show here. -->
 <div id="help" class="hide"></div>
