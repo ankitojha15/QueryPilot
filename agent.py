@@ -28,11 +28,12 @@ def make_sql(question: str, org_id: int = 1):
     # Cut extra explanation after ;
     if ";" in sql:
         sql = sql.split(";")[0] + ";"
-    # Fix placeholder.
-        # Fix all leftover placeholders with safe defaults.
+    # Fix all leftover placeholders with safe defaults.
     sql = sql.replace(":org_id", str(org_id))
     sql = sql.replace("?", "1")
     sql = re.sub(r":\w+", "1", sql)
+    # Force login org. LLM may write 1, server always wins.
+    sql = re.sub(r"org_id\s*=\s*\d+", "org_id = " + str(org_id), sql)
     return sql.strip()
 
 # Quick joint test.
