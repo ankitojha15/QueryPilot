@@ -27,7 +27,17 @@
 </header>
 
 <!-- Main card. -->
+<!-- Main card. -->
 <main class="card">
+<!-- Login box. Token stays in page only. -->
+<h2>🔑 Login</h2>
+<div class="row">
+<input id="name" type="text" placeholder="Name (amit / neha / ravi)" />
+<input id="pw" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()" />
+<button onclick="doLogin()">Login</button>
+</div>
+<p id="who" class="hint">Not logged in.</p>
+
 <h2>✨ Try examples</h2>
 <!-- 5 grey chips, same shade. -->
 <div class="grid">
