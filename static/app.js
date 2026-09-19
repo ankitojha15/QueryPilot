@@ -1,4 +1,4 @@
-// Simple UI logic for QueryPilot.
+// Premium UI logic for QueryPilot.
 
 // Fix Enter key to ask.
 document.addEventListener("DOMContentLoaded", () => {
@@ -19,12 +19,13 @@ async function ask(extra) {
   let q = document.getElementById("q").value.trim();
   if (!q) return;
   if (extra) q = q + " " + extra;
-  showOut("Loading...");
+  setBadge("");
+  showOut("● ● ● thinking...");
   // 1. Check if question needs help.
   const c = await fetch("/clarify?q=" + encodeURIComponent(q)).then((r) => r.json());
   if (c.status === "need_clarification" || c.status === "need_approval") {
     showHelp(c.message, c.options, q);
-    showOut("Need your choice above.");
+    showOut("Pick one choice above ⬆");
     return;
   }
   // 2. Clear question goes to query.
@@ -33,8 +34,11 @@ async function ask(extra) {
 
 // Run final SQL query.
 async function runQuery(q) {
-  showOut("Loading...");
+  setBadge("");
+  showOut("● ● ● thinking...");
   const d = await fetch("/query?q=" + encodeURIComponent(q)).then((r) => r.json());
+  if (d.cached) setBadge("⚡ cached");
+  else if (d.ok) setBadge("✓ fresh");
   const sql = d.sql || d.result || JSON.stringify(d);
   showOut(sql);
 }
@@ -56,12 +60,30 @@ function showHelp(msg, opts, q) {
 // Ask again with user choice.
 function askChoice(q, choice) {
   document.getElementById("help").classList.add("hide");
+  document.getElementById("q").value = q + " " + choice;
   runQuery(q + " " + choice);
 }
 
-// Show output text.
+// Copy SQL to clipboard.
+function copySql() {
+  const t = document.getElementById("out").innerText;
+  navigator.clipboard.writeText(t);
+}
+
+// Show output text in card.
 function showOut(text) {
-  const out = document.getElementById("out");
-  out.classList.remove("hide");
-  out.innerText = text;
+  document.getElementById("ans").classList.remove("hide");
+  document.getElementById("out").innerText = text;
+  document.getElementById("ans").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+// Show small badge.
+function setBadge(text) {
+  const b = document.getElementById("badge");
+  if (!text) {
+    b.classList.add("hide");
+    return;
+  }
+  b.classList.remove("hide");
+  b.innerText = text;
 }
