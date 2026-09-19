@@ -7,6 +7,9 @@
 <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
+<!-- Center full screen. -->
+<div class="screen">
+<div class="wrap">
 <!-- Top header. -->
 <header class="top">
 <h1>QueryPilot</h1>
@@ -16,18 +19,18 @@
 <!-- Main card. -->
 <main class="card">
 <h2>Try examples</h2>
-<!-- 5 small shadow boxes. -->
+<!-- 5 small boxes with different shades. -->
 <div class="grid">
-<button class="ex" onclick="fill('last 30 days city-wise orders?')">last 30 days city-wise orders?</button>
-<button class="ex" onclick="fill('last 30 days state-wise orders?')">last 30 days state-wise orders?</button>
-<button class="ex" onclick="fill('where are my orders?')">where are my orders?</button>
-<button class="ex" onclick="fill('show sales last 30 days?')">show sales last 30 days?</button>
-<button class="ex" onclick="fill('show paid orders?')">show paid orders?</button>
+<button class="ex s1" onclick="fill('last 30 days city-wise orders?')">last 30 days city-wise orders?</button>
+<button class="ex s2" onclick="fill('last 30 days state-wise orders?')">last 30 days state-wise orders?</button>
+<button class="ex s3" onclick="fill('where are my orders?')">where are my orders?</button>
+<button class="ex s4" onclick="fill('show sales last 30 days?')">show sales last 30 days?</button>
+<button class="ex s5" onclick="fill('show paid orders?')">show paid orders?</button>
 </div>
 
-<!-- Ask box. -->
+<!-- Ask box. Enter key also works. -->
 <div class="row">
-<input id="q" type="text" placeholder="Ask question..." />
+<input id="q" type="text" placeholder="Ask question... (Enter)" onkeydown="if(event.key==='Enter')ask()" />
 <button id="ask" onclick="ask()">Ask</button>
 </div>
 
@@ -37,6 +40,8 @@
 <!-- SQL answer shows here. -->
 <pre id="out" class="hide"></pre>
 </main>
+</div>
+</div>
 
 <script src="/static/app.js"></script>
 </body>
