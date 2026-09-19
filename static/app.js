@@ -1,11 +1,22 @@
 // Premium UI logic for QueryPilot.
 
-// Fix Enter key to ask.
+// Fix Enter key + rotating hint text.
 document.addEventListener("DOMContentLoaded", () => {
   const box = document.getElementById("q");
   box.addEventListener("keydown", (e) => {
     if (e.key === "Enter") ask();
   });
+  // Rotate placeholder for creative touch.
+  const hints = [
+    "Ask question...",
+    "Try: last 30 days city-wise orders?...",
+    "Try: where are my orders?...",
+    "Try: show paid orders?...",
+  ];
+  let i = 0;
+  setInterval(() => {
+    if (!box.value) box.placeholder = hints[i++ % hints.length];
+  }, 3000);
 });
 
 // Fill input on example click.
@@ -32,15 +43,26 @@ async function ask(extra) {
   runQuery(q);
 }
 
-// Run final SQL query.
+// Run final SQL query. Shows only clean SQL, hides ok flag.
 async function runQuery(q) {
   setBadge("");
-  showOut("● ● ● thinking...");
+  showOut("Q: " + q + "\n\n● ● ● thinking...");
   const d = await fetch("/query?q=" + encodeURIComponent(q)).then((r) => r.json());
   if (d.cached) setBadge("⚡ cached");
-  else if (d.ok) setBadge("✓ fresh");
-  const sql = d.sql || d.result || JSON.stringify(d);
-  showOut(sql);
+  else setBadge("✓ fresh");
+  const sql = pickSql(d);
+  showOut("Q: " + q + "\n\n" + sql);
+}
+
+// Pick only SQL part. Hides question and ok flag.
+function pickSql(d) {
+  if (d.sql) return d.sql;
+  if (d.result) {
+    const m = d.result.match(/SELECT[\s\S]*?;/);
+    if (m) return m[0];
+    return d.result;
+  }
+  return "";
 }
 
 // Show help buttons.
@@ -64,10 +86,13 @@ function askChoice(q, choice) {
   runQuery(q + " " + choice);
 }
 
-// Copy SQL to clipboard.
+// Copy SQL to clipboard with tick.
 function copySql() {
   const t = document.getElementById("out").innerText;
   navigator.clipboard.writeText(t);
+  const b = document.querySelector(".copy");
+  b.innerText = "Copied ✓";
+  setTimeout(() => (b.innerText = "Copy"), 1500);
 }
 
 // Show output text in card.
