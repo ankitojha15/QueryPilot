@@ -6,6 +6,7 @@ from fastapi.responses import FileResponse
 import redis
 from graph import run_q
 from clarify import check_question
+from auth import login as user_login, get_org
 
 # Make API.
 app = FastAPI(title="QueryPilot")
@@ -20,11 +21,25 @@ def home():
     return FileResponse("static/index.html")
 
 
-@app.get("/clarify")
-def clarify(q: str):
-    """Check unclear question."""
-    status, message, options = check_question(q)
-    return {"status": status, "message": message, "options": options}
+@app.get("/query")
+def query(q: str, token: str = ""):
+    """Run question to SQL for logged in org."""
+    # 0. Token gives org, chat never gives org.
+    org = get_org(token)
+    if org == 0:
+        return {"ok": False, "message": "login first", "sql": ""}
+    # 1. Check cache first. Key has org so orgs never share.
+    key = f"{org}:{q}"
+    if cache:
+        old = cache.get(key)
+        if old:
+            return {"cached": True, "result": old}
+    # 2. Run graph if not found.
+    out = run_q(q, org)
+    # 3. Save for next time.
+    if cache:
+        cache.set(key, str(out), ex=300)
+    return out
 
 # Make cache link. Uses Render Redis if set, else local.
 REDIS_URL = os.getenv("REDIS_URL")
