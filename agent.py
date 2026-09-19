@@ -13,7 +13,7 @@ with open("schema.yml") as f:
 # Make Groq model.
 llm = ChatGroq(model="openai/gpt-oss-20b", temperature=0)
 
-def make_sql(question: str):
+def make_sql(question: str, org_id: int = 1):
     """Make SQL from question."""
     # Send schema + question to LLM.
     prompt = f"Tables: {SCHEMA}. Return only SELECT SQL, no markdown, no explanation for: {question}"
@@ -30,7 +30,7 @@ def make_sql(question: str):
         sql = sql.split(";")[0] + ";"
     # Fix placeholder.
         # Fix all leftover placeholders with safe defaults.
-    sql = sql.replace(":org_id", "1")
+    sql = sql.replace(":org_id", str(org_id))
     sql = sql.replace("?", "1")
     sql = re.sub(r":\w+", "1", sql)
     return sql.strip()
