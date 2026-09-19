@@ -1,6 +1,7 @@
 # Make SQL from question using Groq.
 from langchain_groq import ChatGroq
 import yaml
+import re
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -28,7 +29,10 @@ def make_sql(question: str):
     if ";" in sql:
         sql = sql.split(";")[0] + ";"
     # Fix placeholder.
+        # Fix all leftover placeholders with safe defaults.
     sql = sql.replace(":org_id", "1")
+    sql = sql.replace("?", "1")
+    sql = re.sub(r":\w+", "1", sql)
     return sql.strip()
 
 # Quick joint test.
