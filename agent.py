@@ -32,5 +32,6 @@ def make_sql(question: str):
     return sql.strip()
 
 # Quick joint test.
-from guard import check_sql
-print(check_sql(make_sql("last 30 days city-wise orders?"), 1))
+if __name__ == "__main__":
+    from guard import check_sql
+    print(check_sql(make_sql("last 30 days city-wise orders?"), 1))
