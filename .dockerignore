@@ -1,0 +1,7 @@
+# Keep image small, never ship secrets.
+qpenv/
+__pycache__/
+.env
+.git/
+.gitignore
+audit.log
