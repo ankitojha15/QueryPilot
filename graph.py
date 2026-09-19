@@ -7,16 +7,17 @@ from guard import check_sql
 # Data that moves in graph.
 class State(TypedDict):
     question: str
+    org_id: int
     sql: str
     ok: bool
 
 # Step 1: make SQL.
 def step_make(s: State):
-    return {"sql": make_sql(s["question"])}
+    return {"sql": make_sql(s["question"], s.get("org_id", 1))}
 
 # Step 2: check SQL.
 def step_check(s: State):
-    ok, _, safe = check_sql(s["sql"], 1)
+    ok, _, safe = check_sql(s["sql"], s.get("org_id", 1))
     return {"sql": safe, "ok": ok}
 
 # Build graph.
@@ -28,6 +29,6 @@ g.add_edge("make", "check")
 g.add_edge("check", END)
 app = g.compile()
 
-def run_q(question: str):
+def run_q(question: str, org_id: int = 1):
     """Run full flow."""
-    return app.invoke({"question": question})
+    return app.invoke({"question": question, "org_id": org_id})
