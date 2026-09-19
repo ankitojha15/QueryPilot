@@ -1,86 +1,109 @@
-/* Premium calm look for QueryPilot. */
+/* Aurora sky theme for QueryPilot. Calm yet creative. */
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: -apple-system, Arial, sans-serif;
-  background: linear-gradient(160deg, #e9d6b8 0%, #c8a97e 55%, #a97e4f 100%);
-  color: #333;
+  font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+  background: #f2f3f5;
+  color: #232946;
   min-height: 100vh;
 }
 
-/* Center stage with air. */
+/* Full stage. */
 .screen {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 60px 20px;
+  padding: 56px 20px;
   position: relative;
   overflow: hidden;
+  background:
+    radial-gradient(700px 380px at 12% 8%, rgba(255, 255, 255, 0.9), transparent 60%),
+    radial-gradient(760px 420px at 88% 12%, rgba(228, 231, 236, 0.9), transparent 60%),
+    radial-gradient(680px 420px at 50% 105%, rgba(222, 225, 230, 0.9), transparent 60%),
+    linear-gradient(180deg, #f4f5f7 0%, #e8eaee 100%);
 }
 
-/* Soft floating lights. */
-.glow {
+/* Two slow aurora blobs. */
+.aurora {
   position: absolute;
-  width: 320px;
-  height: 320px;
+  width: 420px;
+  height: 420px;
   border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.35;
+  filter: blur(100px);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: float 11s ease-in-out infinite alternate;
+}
+
+.a1 { background: #ffffff; top: -120px; left: -100px; }
+.a2 { background: #d7dbe1; top: -60px; right: -110px; animation-delay: 2.5s; }
+
+/* Faint dot grid for data feel. */
+.dots-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(35, 41, 70, 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
   pointer-events: none;
 }
 
-.g1 { background: #ffe9c4; top: -80px; left: -80px; }
-.g2 { background: #fff4de; bottom: -100px; right: -60px; }
-
 .wrap { width: 100%; max-width: 680px; position: relative; }
 
-/* Brand header. */
-.top {
-  text-align: center;
-  padding: 38px 20px 28px;
-  background: linear-gradient(135deg, #4a3b2a, #6b4f2e);
-  color: #fdf6e9;
-  border-radius: 24px 24px 0 0;
-  animation: up 0.5s ease;
-}
+/* Brand header, no box, big gradient title. */
+.top { text-align: center; padding: 10px 10px 18px; animation: up 0.5s ease; }
 
 .logo {
-  width: 54px;
-  height: 54px;
-  margin: 0 auto 8px;
-  font-size: 28px;
-  line-height: 54px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 10px;
+  font-size: 30px;
+  line-height: 58px;
+  border-radius: 18px;
+  background: #232946;
+  box-shadow: 0 10px 26px rgba(35, 41, 70, 0.35);
 }
 
-.top h1 { margin: 0; font-size: 32px; letter-spacing: 0.5px; }
-.top p { margin: 8px 0 0; font-size: 14px; opacity: 0.9; }
+.top h1 {
+  margin: 0;
+  font-size: 38px;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #232946, #5b5fc7, #0ea5a5, #232946);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 7s linear infinite;
+}
 
-/* Small trust pills. */
+.top p { margin: 8px 0 0; font-size: 14px; color: #5b6478; }
+
+/* Trust pills. */
 .pills { margin-top: 14px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 
 .pill {
   font-size: 11px;
   padding: 5px 12px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: white;
+  border: 1px solid #e2e7f2;
+  box-shadow: 0 2px 8px rgba(35, 41, 70, 0.08);
+  color: #4a5578;
 }
 
-/* Glass main card. */
+/* White floating card. */
 .card {
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 0 0 24px 24px;
-  padding: 26px;
-  box-shadow: 0 20px 60px rgba(60, 40, 15, 0.3);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid white;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 24px 60px rgba(35, 41, 70, 0.18);
   animation: up 0.6s ease;
 }
 
-.card h2 { font-size: 13px; margin: 0 0 12px; color: #8a7a63; letter-spacing: 0.5px; }
+.card h2 { font-size: 13px; margin: 0 0 12px; color: #7a8499; letter-spacing: 0.5px; }
 
 /* Example grid. */
 .grid {
@@ -89,7 +112,7 @@ body {
   gap: 10px;
 }
 
-/* Grey chips, small font, lift on hover. */
+/* Grey chips, small, lift on hover. */
 .ex {
   font-size: 12px;
   line-height: 1.5;
@@ -97,7 +120,7 @@ body {
   border-radius: 14px;
   background: #f1f3f5;
   border: 1px solid #e2e6ea;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
   color: #444;
   cursor: pointer;
   text-align: left;
@@ -108,7 +131,7 @@ body {
 
 .ex:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 16px rgba(35, 41, 70, 0.14);
   background: #e9ecef;
 }
 
@@ -119,20 +142,20 @@ body {
   flex: 1;
   padding: 13px 16px;
   border-radius: 14px;
-  border: 1.5px solid #d8cdb8;
-  background: #fdfaf4;
+  border: 1.5px solid #dfe4ee;
+  background: #f8faff;
   font-size: 14px;
   outline: none;
 }
 
-.row input:focus { border-color: #8a6a3e; background: #fff; }
+.row input:focus { border-color: #5b5fc7; background: #fff; }
 
 .row button {
   padding: 13px 26px;
   border: 0;
   border-radius: 14px;
-  background: linear-gradient(135deg, #8a6a3e, #6b4f2e);
-  color: #fff8ea;
+  background: #232946;
+  color: white;
   font-weight: bold;
   font-size: 14px;
   cursor: pointer;
@@ -140,6 +163,8 @@ body {
 }
 
 .row button:hover { transform: translateY(-1px); }
+
+.hint { font-size: 11px; color: #8a93a8; margin: 8px 2px 0; }
 
 /* Help box. */
 #help {
@@ -157,8 +182,8 @@ body {
   margin-top: 16px;
   border-radius: 14px;
   overflow: hidden;
-  background: #14100b;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  background: #161a2e;
+  box-shadow: 0 12px 30px rgba(22, 26, 46, 0.35);
   animation: up 0.3s ease;
 }
 
@@ -167,11 +192,11 @@ body {
   align-items: center;
   gap: 8px;
   padding: 10px 12px;
-  background: #221a10;
+  background: #20264a;
 }
 
 .dots { display: flex; gap: 5px; }
-.dots i { width: 10px; height: 10px; border-radius: 50%; background: #5a4a33; display: block; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: #4a5578; display: block; }
 .dots i:first-child { background: #e0655a; }
 .dots i:nth-child(2) { background: #e8b64c; }
 .dots i:nth-child(3) { background: #5fc46a; }
@@ -180,7 +205,7 @@ body {
   font-size: 10px;
   padding: 3px 10px;
   border-radius: 12px;
-  background: #2e7d32;
+  background: #0ea5a5;
   color: white;
 }
 
@@ -189,16 +214,16 @@ body {
   font-size: 11px;
   padding: 5px 12px;
   border-radius: 10px;
-  border: 1px solid #5a4a33;
+  border: 1px solid #4a5578;
   background: transparent;
-  color: #f5e6c8;
+  color: #dfe6ff;
   cursor: pointer;
 }
 
 #out {
   margin: 0;
   padding: 16px;
-  color: #ffe9bd;
+  color: #d8f3dc;
   font-size: 13px;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -208,7 +233,7 @@ body {
 .foot {
   text-align: center;
   font-size: 11px;
-  color: #a08d6f;
+  color: #8a93a8;
   margin: 18px 0 0;
   letter-spacing: 0.3px;
 }
@@ -216,14 +241,26 @@ body {
 .hide { display: none; }
 .opt { margin: 5px; }
 
-/* Soft rise motion. */
+/* Rise motion. */
 @keyframes up {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Slow blob float. */
+@keyframes float {
+  from { transform: translateY(-14px); }
+  to { transform: translateY(14px); }
+}
+
+/* Title shine slide. */
+@keyframes shine {
+  to { background-position: 220% center; }
 }
 
 /* One column on phone. */
 @media (max-width: 520px) {
   .grid { grid-template-columns: 1fr; }
   .screen { padding: 30px 12px; }
+  .top h1 { font-size: 30px; }
 }
