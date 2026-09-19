@@ -20,9 +20,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Fill input on example click.
-function fill(text) {
-  document.getElementById("q").value = text;
-  ask();
+// Saved login token. Empty means logged out.
+let TOKEN = "";
+
+// Login with name and password.
+async function doLogin() {
+  const name = document.getElementById("name").value.trim();
+  const pw = document.getElementById("pw").value;
+  const d = await fetch("/login?name=" + encodeURIComponent(name) + "&password=" + encodeURIComponent(pw)).then((r) => r.json());
+  const who = document.getElementById("who");
+  if (d.ok) {
+    TOKEN = d.token;
+    who.innerText = "Logged in: " + name + " (ask now)";
+  } else {
+    TOKEN = "";
+    who.innerText = "Login failed: " + d.message;
+  }
 }
 
 // Ask question to API.
@@ -52,10 +65,19 @@ async function ask(extra) {
 }
 
 // Run final SQL query. Shows only clean SQL, hides ok flag.
+// Run final SQL query. Shows only clean SQL, hides ok flag.
 async function runQuery(q) {
+  if (!TOKEN) {
+    showOut("Q: " + q + "\n\nPlease login first.");
+    return;
+  }
   setBadge("");
   showOut("Q: " + q + "\n\n● ● ● thinking...");
-  const d = await fetch("/query?q=" + encodeURIComponent(q)).then((r) => r.json());
+  const d = await fetch("/query?q=" + encodeURIComponent(q) + "&token=" + TOKEN).then((r) => r.json());
+  if (d.ok === false) {
+    showOut("Q: " + q + "\n\n" + (d.message || "login first"));
+    return;
+  }
   if (d.cached) setBadge("⚡ cached");
   else setBadge("✓ fresh");
   const sql = pickSql(d);
