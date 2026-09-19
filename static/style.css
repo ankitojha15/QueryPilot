@@ -6,12 +6,24 @@ body {
   color: #222;
 }
 
+/* Center full screen. */
+.screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.wrap { width: 100%; max-width: 620px; }
+
 /* Header with gradient. */
 .top {
   text-align: center;
-  padding: 28px 12px;
+  padding: 22px 12px;
   background: linear-gradient(120deg, #4f7cff, #7c5cff);
   color: white;
+  border-radius: 14px 14px 0 0;
 }
 
 .top h1 { margin: 0; }
@@ -19,36 +31,40 @@ body {
 
 /* White main card. */
 .card {
-  max-width: 640px;
-  margin: -18px auto 24px;
   background: white;
-  border-radius: 14px;
-  padding: 16px;
+  border-radius: 0 0 14px 14px;
+  padding: 14px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-.card h2 { font-size: 15px; margin: 4px 0 10px; }
+.card h2 { font-size: 14px; margin: 2px 0 8px; color: #555; }
 
 /* Example grid. */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 6px;
 }
 
 /* Small shadow box for examples. */
 .ex {
-  font-size: 13px;
-  padding: 8px;
-  border: 1px solid #e3e8f0;
+  font-size: 12px;
+  padding: 6px 8px;
   border-radius: 10px;
-  background: #f8faff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   text-align: left;
+  border: 1px solid transparent;
 }
 
-.ex:hover { background: #eef4ff; }
+.ex:hover { filter: brightness(0.96); }
+
+/* 5 different light shades. */
+.s1 { background: #eef4ff; border-color: #c9dbff; }
+.s2 { background: #ecfdf3; border-color: #b9e8c9; }
+.s3 { background: #fff7e6; border-color: #f2ddac; }
+.s4 { background: #f3efff; border-color: #d3c9ff; }
+.s5 { background: #ffeff3; border-color: #f5b9c9; }
 
 /* Ask row. */
 .row { display: flex; gap: 8px; margin-top: 12px; }
