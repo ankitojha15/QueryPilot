@@ -63,14 +63,16 @@ async function runQuery(q) {
 }
 
 // Pick only SQL part. Hides question and ok flag.
+// Pick only SQL part. Hides question and ok flag.
 function pickSql(d) {
-  if (d.sql) return d.sql;
-  if (d.result) {
+  let t = "";
+  if (d.sql) t = d.sql;
+  else if (d.result) {
     const m = d.result.match(/SELECT[\s\S]*?;/);
-    if (m) return m[0];
-    return d.result;
+    t = m ? m[0] : d.result;
   }
-  return "";
+  // Cached text has \n as letters, make them real lines.
+  return t.replace(/\\n/g, "\n").replace(/\\"/g, '"').replace(/\\'/g, "'");
 }
 
 // Show help buttons.
