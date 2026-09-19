@@ -4,10 +4,10 @@ def check_question(text: str):
     low = text.lower().strip()
 
     # Case 0: destructive request is blocked.
-    for word in ["delete", "drop", "update", "remove", "insert", "alter", "truncate"]:
+        # Case 0: destructive request is blocked.
+    for word in ["delete", "drop", "update", "remove", "insert", "alter", "truncate", "change", "block", "edit", "modify", "rename", "deactivate", "ban"]:
         if word in low:
-            return ("blocked", "I only run safe SELECT queries. Delete / update is not allowed.", [])
-
+            return ("blocked", "I only run safe SELECT queries. Change / block / delete is not allowed.", [])
     # Case 1: location missing in order question.
     if "where" in low and "order" in low:
         if "city" not in low and "state" not in low:
