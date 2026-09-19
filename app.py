@@ -1,4 +1,5 @@
 # API for QueryPilot.
+import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -25,9 +26,13 @@ def clarify(q: str):
     status, message, options = check_question(q)
     return {"status": status, "message": message, "options": options}
 
-# Make cache link.
+# Make cache link. Uses Render Redis if set, else local.
+REDIS_URL = os.getenv("REDIS_URL")
 try:
-    cache = redis.Redis(host="localhost", port=6379, decode_responses=True)
+    if REDIS_URL:
+        cache = redis.from_url(REDIS_URL, decode_responses=True)
+    else:
+        cache = redis.Redis(host="localhost", port=6379, decode_responses=True)
     cache.ping()
 except Exception:
     cache = None
@@ -50,5 +55,8 @@ def query(q: str):
 @app.get("/audit")
 def audit():
     """Show past queries."""
-    with open("audit.log") as f:
-        return {"log": f.read().splitlines()[-20:]}
+    try:
+        with open("audit.log") as f:
+            return {"log": f.read().splitlines()[-20:]}
+    except FileNotFoundError:
+        return {"log": []}
