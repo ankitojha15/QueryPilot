@@ -4,7 +4,7 @@
 body {
   margin: 0;
   font-family: -apple-system, "Segoe UI", Arial, sans-serif;
-  background: #f2f3f5;
+  background: #eef1f8;
   color: #232946;
   min-height: 100vh;
 }
@@ -19,10 +19,10 @@ body {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(700px 380px at 12% 8%, rgba(255, 255, 255, 0.9), transparent 60%),
-    radial-gradient(760px 420px at 88% 12%, rgba(228, 231, 236, 0.9), transparent 60%),
-    radial-gradient(680px 420px at 50% 105%, rgba(222, 225, 230, 0.9), transparent 60%),
-    linear-gradient(180deg, #f4f5f7 0%, #e8eaee 100%);
+    radial-gradient(700px 380px at 12% 8%, rgba(255, 171, 145, 0.5), transparent 60%),
+    radial-gradient(760px 420px at 88% 12%, rgba(165, 180, 252, 0.55), transparent 60%),
+    radial-gradient(680px 420px at 50% 105%, rgba(153, 246, 228, 0.5), transparent 60%),
+    linear-gradient(180deg, #f7f8fd 0%, #e9edf6 100%);
 }
 
 /* Two slow aurora blobs. */
@@ -37,8 +37,8 @@ body {
   animation: float 11s ease-in-out infinite alternate;
 }
 
-.a1 { background: #ffffff; top: -120px; left: -100px; }
-.a2 { background: #d7dbe1; top: -60px; right: -110px; animation-delay: 2.5s; }
+.a1 { background: #ffd6c2; top: -120px; left: -100px; }
+.a2 { background: #c7d2fe; top: -60px; right: -110px; animation-delay: 2.5s; }
 
 /* Faint dot grid for data feel. */
 .dots-bg {
