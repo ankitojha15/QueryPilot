@@ -1,10 +1,29 @@
 # API for QueryPilot.
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import redis
 from graph import run_q
+from clarify import check_question
 
 # Make API.
 app = FastAPI(title="QueryPilot")
+
+# Serve static UI files.
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get("/")
+def home():
+    """Show main UI page."""
+    return FileResponse("static/index.html")
+
+
+@app.get("/clarify")
+def clarify(q: str):
+    """Check unclear question."""
+    status, message, options = check_question(q)
+    return {"status": status, "message": message, "options": options}
 
 # Make cache link.
 try:
