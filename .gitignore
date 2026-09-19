@@ -1,4 +1,4 @@
 .env
 qpenv/
-
-__pycache__
+__pycache__/
+audit.log
