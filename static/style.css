@@ -1,102 +1,229 @@
-/* Simple clean look for QueryPilot. */
+/* Premium calm look for QueryPilot. */
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #eef2f7;
-  color: #222;
+  font-family: -apple-system, Arial, sans-serif;
+  background: linear-gradient(160deg, #e9d6b8 0%, #c8a97e 55%, #a97e4f 100%);
+  color: #333;
+  min-height: 100vh;
 }
 
-/* Center full screen. */
+/* Center stage with air. */
 .screen {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px;
+  align-items: flex-start;
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
 }
 
-.wrap { width: 100%; max-width: 620px; }
+/* Soft floating lights. */
+.glow {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  pointer-events: none;
+}
 
-/* Header with gradient. */
+.g1 { background: #ffe9c4; top: -80px; left: -80px; }
+.g2 { background: #fff4de; bottom: -100px; right: -60px; }
+
+.wrap { width: 100%; max-width: 680px; position: relative; }
+
+/* Brand header. */
 .top {
   text-align: center;
-  padding: 22px 12px;
-  background: linear-gradient(120deg, #4f7cff, #7c5cff);
-  color: white;
-  border-radius: 14px 14px 0 0;
+  padding: 38px 20px 28px;
+  background: linear-gradient(135deg, #4a3b2a, #6b4f2e);
+  color: #fdf6e9;
+  border-radius: 24px 24px 0 0;
+  animation: up 0.5s ease;
 }
 
-.top h1 { margin: 0; }
-.top p { margin: 4px 0 0; font-size: 14px; }
+.logo {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 8px;
+  font-size: 28px;
+  line-height: 54px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
 
-/* White main card. */
+.top h1 { margin: 0; font-size: 32px; letter-spacing: 0.5px; }
+.top p { margin: 8px 0 0; font-size: 14px; opacity: 0.9; }
+
+/* Small trust pills. */
+.pills { margin-top: 14px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+
+.pill {
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Glass main card. */
 .card {
-  background: white;
-  border-radius: 0 0 14px 14px;
-  padding: 14px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 0 0 24px 24px;
+  padding: 26px;
+  box-shadow: 0 20px 60px rgba(60, 40, 15, 0.3);
+  animation: up 0.6s ease;
 }
 
-.card h2 { font-size: 14px; margin: 2px 0 8px; color: #555; }
+.card h2 { font-size: 13px; margin: 0 0 12px; color: #8a7a63; letter-spacing: 0.5px; }
 
 /* Example grid. */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 10px;
 }
 
-/* Small shadow box for examples. */
+/* Grey chips, small font, lift on hover. */
 .ex {
   font-size: 12px;
-  padding: 6px 8px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  line-height: 1.5;
+  padding: 11px 12px;
+  border-radius: 14px;
+  background: #f1f3f5;
+  border: 1px solid #e2e6ea;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  color: #444;
   cursor: pointer;
   text-align: left;
-  border: 1px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.ex:hover { filter: brightness(0.96); }
+.ex span { margin-right: 6px; }
 
-/* 5 different light shades. */
-.s1 { background: #eef4ff; border-color: #c9dbff; }
-.s2 { background: #ecfdf3; border-color: #b9e8c9; }
-.s3 { background: #fff7e6; border-color: #f2ddac; }
-.s4 { background: #f3efff; border-color: #d3c9ff; }
-.s5 { background: #ffeff3; border-color: #f5b9c9; }
+.ex:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  background: #e9ecef;
+}
 
 /* Ask row. */
-.row { display: flex; gap: 8px; margin-top: 12px; }
+.row { display: flex; gap: 10px; margin-top: 20px; }
 
 .row input {
   flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccd5e0;
+  padding: 13px 16px;
+  border-radius: 14px;
+  border: 1.5px solid #d8cdb8;
+  background: #fdfaf4;
   font-size: 14px;
+  outline: none;
 }
 
+.row input:focus { border-color: #8a6a3e; background: #fff; }
+
 .row button {
-  padding: 10px 18px;
+  padding: 13px 26px;
   border: 0;
-  border-radius: 10px;
-  background: #4f7cff;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #8a6a3e, #6b4f2e);
+  color: #fff8ea;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.row button:hover { transform: translateY(-1px); }
+
+/* Help box. */
+#help {
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff8e8;
+  border: 1px solid #ecd9ac;
+}
+
+/* Answer terminal card. */
+#ans {
+  margin-top: 16px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #14100b;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  animation: up 0.3s ease;
+}
+
+.ansbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #221a10;
+}
+
+.dots { display: flex; gap: 5px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: #5a4a33; display: block; }
+.dots i:first-child { background: #e0655a; }
+.dots i:nth-child(2) { background: #e8b64c; }
+.dots i:nth-child(3) { background: #5fc46a; }
+
+.badge {
+  font-size: 10px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: #2e7d32;
   color: white;
+}
+
+.copy {
+  margin-left: auto;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 10px;
+  border: 1px solid #5a4a33;
+  background: transparent;
+  color: #f5e6c8;
   cursor: pointer;
 }
 
-/* Help and output boxes. */
-#help { margin-top: 12px; font-size: 13px; }
 #out {
-  margin-top: 12px;
-  padding: 10px;
-  background: #0f172a;
-  color: #d1fae5;
-  border-radius: 10px;
+  margin: 0;
+  padding: 16px;
+  color: #ffe9bd;
   font-size: 13px;
+  line-height: 1.7;
   white-space: pre-wrap;
+  font-family: monospace;
+}
+
+.foot {
+  text-align: center;
+  font-size: 11px;
+  color: #a08d6f;
+  margin: 18px 0 0;
+  letter-spacing: 0.3px;
 }
 
 .hide { display: none; }
-.opt { margin: 4px; }
+.opt { margin: 5px; }
+
+/* Soft rise motion. */
+@keyframes up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* One column on phone. */
+@media (max-width: 520px) {
+  .grid { grid-template-columns: 1fr; }
+  .screen { padding: 30px 12px; }
+}
