@@ -7,38 +7,58 @@
 <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-<!-- Center full screen. -->
+<!-- Full screen stage. -->
 <div class="screen">
+<!-- Soft light spots. -->
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+
 <div class="wrap">
-<!-- Top header. -->
+<!-- Brand header. -->
 <header class="top">
+<div class="logo">🧭</div>
 <h1>QueryPilot</h1>
 <p>Ask in English, get safe SQL.</p>
+<!-- Trust pills. -->
+<div class="pills">
+<span class="pill">✓ Safe SQL</span>
+<span class="pill">⚡ Redis Cache</span>
+<span class="pill">★ Eval 5/5</span>
+</div>
 </header>
 
-<!-- Main card. -->
+<!-- Main glass card. -->
 <main class="card">
-<h2>Try examples</h2>
-<!-- 5 grey boxes, same shade. -->
+<h2>✨ Try examples</h2>
+<!-- 5 grey chips, same shade. -->
 <div class="grid">
-<button class="ex" onclick="fill('last 30 days city-wise orders?')">last 30 days city-wise orders?</button>
-<button class="ex" onclick="fill('last 30 days state-wise orders?')">last 30 days state-wise orders?</button>
-<button class="ex" onclick="fill('where are my orders?')">where are my orders?</button>
-<button class="ex" onclick="fill('show sales last 30 days?')">show sales last 30 days?</button>
-<button class="ex" onclick="fill('show paid orders?')">show paid orders?</button>
+<button class="ex" onclick="fill('last 30 days city-wise orders?')"><span>📍</span> last 30 days city-wise orders?</button>
+<button class="ex" onclick="fill('last 30 days state-wise orders?')"><span>🗺️</span> last 30 days state-wise orders?</button>
+<button class="ex" onclick="fill('where are my orders?')"><span>❓</span> where are my orders?</button>
+<button class="ex" onclick="fill('show sales last 30 days?')"><span>📊</span> show sales last 30 days?</button>
+<button class="ex" onclick="fill('show paid orders?')"><span>💰</span> show paid orders?</button>
 </div>
 
-<!-- Ask box. Enter key also works. -->
+<!-- Ask box. Enter key works. -->
 <div class="row">
 <input id="q" type="text" placeholder="Ask question..." onkeydown="if(event.key==='Enter')ask()" />
-<button id="ask" onclick="ask()">Ask</button>
+<button id="ask" onclick="ask()">Ask →</button>
 </div>
 
 <!-- Clarify buttons show here. -->
 <div id="help" class="hide"></div>
 
-<!-- SQL answer shows here. -->
-<pre id="out" class="hide"></pre>
+<!-- SQL answer card shows here. -->
+<div id="ans" class="hide">
+<div class="ansbar">
+<span class="dots"><i></i><i></i><i></i></span>
+<span id="badge" class="badge hide"></span>
+<button class="copy" onclick="copySql()">Copy</button>
+</div>
+<pre id="out"></pre>
+</div>
+
+<p class="foot">Safe by guard • Fast by cache • Clear by clarify</p>
 </main>
 </div>
 </div>
