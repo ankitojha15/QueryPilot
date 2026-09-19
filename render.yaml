@@ -1,0 +1,27 @@
+# Render blueprint: web + postgres + redis, all free.
+services:
+  - type: web
+    name: querypilot
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      # Secret key, fill in Render dashboard.
+      - key: GROQ_API_KEY
+        sync: false
+      # Auto link to redis below.
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: querypilot-cache
+          property: connectionString
+
+  - type: redis
+    name: querypilot-cache
+    plan: free
+    maxmemoryPolicy: allkeys-lfu
+
+databases:
+  - name: querypilot-db
+    plan: free
+    postgresMajorVersion: 16
