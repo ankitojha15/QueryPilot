@@ -1,5 +1,13 @@
 // Simple UI logic for QueryPilot.
 
+// Fix Enter key to ask.
+document.addEventListener("DOMContentLoaded", () => {
+  const box = document.getElementById("q");
+  box.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") ask();
+  });
+});
+
 // Fill input on example click.
 function fill(text) {
   document.getElementById("q").value = text;
