@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QueryPilot</title>
+<link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<!-- Top header. -->
+<header class="top">
+<h1>QueryPilot</h1>
+<p>Ask in English, get safe SQL.</p>
+</header>
+
+<!-- Main card. -->
+<main class="card">
+<h2>Try examples</h2>
+<!-- 5 small shadow boxes. -->
+<div class="grid">
+<button class="ex" onclick="fill('last 30 days city-wise orders?')">last 30 days city-wise orders?</button>
+<button class="ex" onclick="fill('last 30 days state-wise orders?')">last 30 days state-wise orders?</button>
+<button class="ex" onclick="fill('where are my orders?')">where are my orders?</button>
+<button class="ex" onclick="fill('show sales last 30 days?')">show sales last 30 days?</button>
+<button class="ex" onclick="fill('show paid orders?')">show paid orders?</button>
+</div>
+
+<!-- Ask box. -->
+<div class="row">
+<input id="q" type="text" placeholder="Ask question..." />
+<button id="ask" onclick="ask()">Ask</button>
+</div>
+
+<!-- Clarify buttons show here. -->
+<div id="help" class="hide"></div>
+
+<!-- SQL answer shows here. -->
+<pre id="out" class="hide"></pre>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
