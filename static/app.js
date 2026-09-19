@@ -34,6 +34,14 @@ async function ask(extra) {
   showOut("● ● ● thinking...");
   // 1. Check if question needs help.
   const c = await fetch("/clarify?q=" + encodeURIComponent(q)).then((r) => r.json());
+  // 0. Destructive request is blocked, no SQL runs.
+  if (c.status === "blocked") {
+    const box = document.getElementById("help");
+    box.classList.remove("hide");
+    box.innerHTML = "<b>⛔ " + c.message + "</b>";
+    showOut("Q: " + q + "\n\nBlocked: no SQL run.");
+    return;
+  }
   if (c.status === "need_clarification" || c.status === "need_approval") {
     showHelp(c.message, c.options, q);
     showOut("Pick one choice above ⬆");
