@@ -19,9 +19,10 @@ Ask in English, get safe SQL + results. Unsafe queries blocked.
 docker compose up -d
 docker exec -i querypilot-db-1 psql -U pilot -d pilot < seed.sql
 ./qpenv/bin/uvicorn app:app --port 8000
-./qpenv/bin/streamlit run ui.py --server.port 8501
 ./qpenv/bin/python eval.py
+
+Open UI: http://127.0.0.1:8000/ (served by FastAPI, HTML/CSS/JS)
 
 
 ## Tech Stack
-FastAPI, LangChain-Core, LangChain-Groq, LangGraph, Postgres, Redis, sqlglot, Docker
+FastAPI, LangChain-Core, LangChain-Groq, LangGraph, Postgres, Redis, sqlglot, Docker, HTML/CSS/JS
