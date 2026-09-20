@@ -21,6 +21,30 @@ def home():
     return FileResponse("static/index.html")
 
 
+@app.get("/clarify")
+def clarify(q: str):
+    """Check unclear question."""
+    status, message, options = check_question(q)
+    return {"status": status, "message": message, "options": options}
+
+
+@app.get("/login")
+def login(name: str, password: str):
+    """Give token for valid user."""
+    ok, message, token = user_login(name, password)
+    return {"ok": ok, "message": message, "token": token}
+
+# Make cache link. Uses Render Redis if set, else local.
+REDIS_URL = os.getenv("REDIS_URL")
+try:
+    if REDIS_URL:
+        cache = redis.from_url(REDIS_URL, decode_responses=True)
+    else:
+        cache = redis.Redis(host="localhost", port=6379, decode_responses=True)
+    cache.ping()
+except Exception:
+    cache = None
+
 @app.get("/query")
 def query(q: str, token: str = ""):
     """Run question to SQL for logged in org."""
@@ -39,32 +63,6 @@ def query(q: str, token: str = ""):
     # 3. Save for next time.
     if cache:
         cache.set(key, str(out), ex=300)
-    return out
-
-# Make cache link. Uses Render Redis if set, else local.
-REDIS_URL = os.getenv("REDIS_URL")
-try:
-    if REDIS_URL:
-        cache = redis.from_url(REDIS_URL, decode_responses=True)
-    else:
-        cache = redis.Redis(host="localhost", port=6379, decode_responses=True)
-    cache.ping()
-except Exception:
-    cache = None
-
-@app.get("/query")
-def query(q: str):
-    """Run question to SQL."""
-    # 1. Check cache first.
-    if cache:
-        old = cache.get(q)
-        if old:
-            return {"cached": True, "result": old}
-    # 2. Run graph if not found.
-    out = run_q(q)
-    # 3. Save for next time.
-    if cache:
-        cache.set(q, str(out), ex=300)
     return out
 
 @app.get("/audit")
