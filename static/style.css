@@ -1,10 +1,10 @@
-/* Aurora sky theme for QueryPilot. Calm yet creative. */
+/* Aurora night theme for QueryPilot. Slightly dark, calm yet creative. */
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: -apple-system, "Segoe UI", Arial, sans-serif;
-  background: #eef1f8;
+  background: #2f3650;
   color: #232946;
   min-height: 100vh;
 }
@@ -19,10 +19,10 @@ body {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(700px 380px at 12% 8%, rgba(255, 171, 145, 0.5), transparent 60%),
-    radial-gradient(760px 420px at 88% 12%, rgba(165, 180, 252, 0.55), transparent 60%),
-    radial-gradient(680px 420px at 50% 105%, rgba(153, 246, 228, 0.5), transparent 60%),
-    linear-gradient(180deg, #f7f8fd 0%, #e9edf6 100%);
+    radial-gradient(700px 380px at 12% 8%, rgba(91, 95, 199, 0.45), transparent 60%),
+    radial-gradient(760px 420px at 88% 12%, rgba(14, 165, 165, 0.35), transparent 60%),
+    radial-gradient(680px 420px at 50% 105%, rgba(255, 171, 145, 0.25), transparent 60%),
+    linear-gradient(180deg, #3a4260 0%, #262c44 100%);
 }
 
 /* Two slow aurora blobs. */
@@ -37,14 +37,14 @@ body {
   animation: float 11s ease-in-out infinite alternate;
 }
 
-.a1 { background: #ffd6c2; top: -120px; left: -100px; }
-.a2 { background: #c7d2fe; top: -60px; right: -110px; animation-delay: 2.5s; }
+.a1 { background: #5b5fc7; top: -120px; left: -100px; }
+.a2 { background: #0ea5a5; top: -60px; right: -110px; animation-delay: 2.5s; }
 
-/* Faint dot grid for data feel. */
+/* Faint dot grid for data feel. Light dots on dark. */
 .dots-bg {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(35, 41, 70, 0.09) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 22px 22px;
   pointer-events: none;
 }
@@ -61,15 +61,16 @@ body {
   font-size: 30px;
   line-height: 58px;
   border-radius: 18px;
-  background: #232946;
-  box-shadow: 0 10px 26px rgba(35, 41, 70, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
 }
 
 .top h1 {
   margin: 0;
   font-size: 38px;
   letter-spacing: 0.5px;
-  background: linear-gradient(90deg, #232946, #5b5fc7, #0ea5a5, #232946);
+  background: linear-gradient(90deg, #ffffff, #c7d2fe, #99f6e4, #ffffff);
   background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -77,7 +78,7 @@ body {
   animation: shine 7s linear infinite;
 }
 
-.top p { margin: 8px 0 0; font-size: 14px; color: #5b6478; }
+.top p { margin: 8px 0 0; font-size: 14px; color: #aab3c9; }
 
 /* Trust pills. */
 .pills { margin-top: 14px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
@@ -99,7 +100,7 @@ body {
   border: 1px solid white;
   border-radius: 22px;
   padding: 24px;
-  box-shadow: 0 24px 60px rgba(35, 41, 70, 0.18);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
   animation: up 0.6s ease;
 }
 
