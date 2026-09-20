@@ -6,12 +6,13 @@ Ask in English, get safe SQL + results. Unsafe queries blocked.
 
 ## Features
 - Natural language to SQL using Groq
-- Only SELECT allowed (DROP / DELETE / UPDATE auto-blocked)
+- Login based org isolation (token gives org, chat never gives org)
+- Only SELECT allowed (DELETE / UPDATE / CHANGE / BLOCK auto-blocked)
 - `org_id` filter compulsory, `LIMIT 200` auto-added
 - PII `email` blocked, audit in `audit.log`
 - Clarify unclear questions (city/state, 7/30/90 days)
-- Redis cache for repeat questions
-- APIs: `/query`, `/audit`
+- Redis cache per org for repeat questions
+- APIs: `/login`, `/clarify`, `/query`, `/audit`
 - Eval 5/5 pass
 
 ## Run
