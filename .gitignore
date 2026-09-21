@@ -2,3 +2,4 @@
 qpenv/
 __pycache__/
 audit.log
+.DS_Store
