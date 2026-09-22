@@ -58,7 +58,6 @@ async function ask(extra) {
   runQuery(q);
 }
 
-// Run final SQL query. Shows only clean SQL.
 // Run final SQL query. Shows clean SQL plus rows.
 async function runQuery(q, approved) {
   if (!TOKEN) {
@@ -113,7 +112,6 @@ function showHelp(msg, opts, q) {
   });
 }
 
-// Ask again with user choice.
 // Ask again with user choice. Yes-run sends approval, cancel stops.
 function askChoice(q, choice) {
   document.getElementById("help").classList.add("hide");
@@ -126,6 +124,7 @@ function askChoice(q, choice) {
     return;
   }
   document.getElementById("q").value = q + " " + choice;
+}
 
 // Copy SQL to clipboard.
 function copySql() {
