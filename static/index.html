@@ -19,9 +19,9 @@
 </header>
 
 <main>
-<!-- 01. Sign in. -->
+<!-- Sign in. -->
 <section class="block">
-<p class="label">01. Sign in</p>
+<p class="label">Sign in</p>
 <div class="row">
 <input id="name" type="text" placeholder="Name (amit, neha, ravi)" autocomplete="username" />
 <input id="pw" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" />
@@ -30,9 +30,10 @@
 <p id="who" class="note">Not signed in. Demo logins: amit / amit123, neha / neha123, ravi / ravi123.</p>
 </section>
 
-<!-- 02. Examples. -->
+<!-- Suggestions. -->
 <section class="block">
-<p class="label">02. Examples</p>
+<p class="label">Try examples</p>
+<p class="note">Just suggestions. Ask anything in your own words.</p>
 <div class="list">
 <button class="ex" onclick="fill('last 30 days city-wise orders?')">Last 30 days, orders by city</button>
 <button class="ex" onclick="fill('last 30 days state-wise orders?')">Last 30 days, orders by state</button>
@@ -42,9 +43,9 @@
 </div>
 </section>
 
-<!-- 03. Ask. -->
+<!-- Ask. -->
 <section class="block">
-<p class="label">03. Ask</p>
+<p class="label">Ask</p>
 <div class="row">
 <input id="q" type="text" placeholder="Ask a question" onkeydown="if(event.key==='Enter')ask()" />
 <button id="ask" type="button" onclick="ask()">Ask</button>
