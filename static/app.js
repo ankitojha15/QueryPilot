@@ -59,22 +59,32 @@ async function ask(extra) {
 }
 
 // Run final SQL query. Shows only clean SQL.
-async function runQuery(q) {
+// Run final SQL query. Shows clean SQL plus rows.
+async function runQuery(q, approved) {
   if (!TOKEN) {
     showOut("Q: " + q + "\n\nPlease sign in first.");
     return;
   }
   setBadge("");
   showLoading();
-  const d = await fetch("/query?q=" + encodeURIComponent(q) + "&token=" + TOKEN).then((r) => r.json());
+  let url = "/query?q=" + encodeURIComponent(q) + "&token=" + TOKEN;
+  if (approved) url += "&approved=yes";
+  const d = await fetch(url).then((r) => r.json());
   if (d.ok === false) {
     showOut("Q: " + q + "\n\n" + (d.message || "Please sign in first."));
     return;
   }
   if (d.cached) setBadge("cached");
   else setBadge("fresh");
-  const sql = pickSql(d);
-  showOut("Q: " + q + "\n\n" + sql);
+  showOut("Q: " + q + "\n\n" + pickSql(d) + rowsText(d));
+}
+
+// Make rows into plain text table.
+function rowsText(d) {
+  if (!d.cols) return "";
+  if (!d.rows.length) return "\n\nRows: none.";
+  const lines = d.rows.map((r) => r.join(" | "));
+  return "\n\nRows (" + d.rows.length + "):\n" + d.cols.join(" | ") + "\n" + lines.join("\n");
 }
 
 // Pick only the SQL part from the answer.
@@ -104,11 +114,18 @@ function showHelp(msg, opts, q) {
 }
 
 // Ask again with user choice.
+// Ask again with user choice. Yes-run sends approval, cancel stops.
 function askChoice(q, choice) {
   document.getElementById("help").classList.add("hide");
+  if (choice === "cancel") {
+    showOut("Q: " + q + "\n\nCancelled.");
+    return;
+  }
+  if (choice === "yes-run") {
+    runQuery(q, true);
+    return;
+  }
   document.getElementById("q").value = q + " " + choice;
-  runQuery(q + " " + choice);
-}
 
 // Copy SQL to clipboard.
 function copySql() {
