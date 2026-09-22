@@ -7,69 +7,75 @@
 <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
-<!-- Aurora stage. -->
-<div class="screen">
-<div class="aurora a1"></div>
-<div class="aurora a2"></div>
-<div class="dots-bg"></div>
-
+<div class="page">
 <div class="wrap">
-<!-- Brand header. -->
+
+<!-- Masthead. -->
 <header class="top">
-<div class="logo">🧭</div>
+<p class="mark">QP</p>
 <h1>QueryPilot</h1>
-<p>Ask in English, get safe SQL.</p>
-<div class="pills">
-<span class="pill">✓ Safe SQL</span>
-<span class="pill">⚡ Redis Cache</span>
-<span class="pill">★ Eval 5/5</span>
-</div>
+<p class="sub">Ask in plain English. Get safe SQL back.</p>
+<p class="meta">Safe SELECT only. Per-org cache. Eval 5 of 5.</p>
 </header>
 
-<!-- Main card. -->
-<!-- Main card. -->
-<main class="card">
-<!-- Login box. Token stays in page only. -->
-<h2>🔑 Login</h2>
+<main>
+<!-- 01. Sign in. -->
+<section class="block">
+<p class="label">01. Sign in</p>
 <div class="row">
-<input id="name" type="text" placeholder="Name (amit / neha / ravi)" />
-<input id="pw" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()" />
-<button onclick="doLogin()">Login</button>
+<input id="name" type="text" placeholder="Name (amit, neha, ravi)" autocomplete="username" />
+<input id="pw" type="password" placeholder="Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()" />
+<button type="button" onclick="doLogin()">Sign in</button>
 </div>
-<p id="who" class="hint">Not logged in.</p>
+<p id="who" class="note">Not signed in. Demo logins: amit / amit123, neha / neha123, ravi / ravi123.</p>
+</section>
 
-<h2>✨ Try examples</h2>
-<!-- 5 grey chips, same shade. -->
-<div class="grid">
-<button class="ex" onclick="fill('last 30 days city-wise orders?')"><span>📍</span> last 30 days city-wise orders?</button>
-<button class="ex" onclick="fill('last 30 days state-wise orders?')"><span>🗺️</span> last 30 days state-wise orders?</button>
-<button class="ex" onclick="fill('where are my orders?')"><span>❓</span> where are my orders?</button>
-<button class="ex" onclick="fill('show sales last 30 days?')"><span>📊</span> show sales last 30 days?</button>
-<button class="ex" onclick="fill('show paid orders?')"><span>💰</span> show paid orders?</button>
+<!-- 02. Examples. -->
+<section class="block">
+<p class="label">02. Examples</p>
+<div class="list">
+<button class="ex" onclick="fill('last 30 days city-wise orders?')">Last 30 days, orders by city</button>
+<button class="ex" onclick="fill('last 30 days state-wise orders?')">Last 30 days, orders by state</button>
+<button class="ex" onclick="fill('where are my orders?')">Where are my orders</button>
+<button class="ex" onclick="fill('show sales last 30 days?')">Sales in the last 30 days</button>
+<button class="ex" onclick="fill('show paid orders?')">Paid orders</button>
 </div>
+</section>
 
-<!-- Ask box. Enter key works. -->
+<!-- 03. Ask. -->
+<section class="block">
+<p class="label">03. Ask</p>
 <div class="row">
-<input id="q" type="text" placeholder="Ask question..." onkeydown="if(event.key==='Enter')ask()" />
-<button id="ask" onclick="ask()">Ask →</button>
+<input id="q" type="text" placeholder="Ask a question" onkeydown="if(event.key==='Enter')ask()" />
+<button id="ask" type="button" onclick="ask()">Ask</button>
 </div>
-<p class="hint">Press <b>Enter</b> to run • Safe SELECT only • org_id auto-safe</p>
+<p class="note">Enter works too. Destructive requests are refused. Every query is org filtered.</p>
+</section>
 
-<!-- Clarify buttons show here. -->
+<!-- Clarify choices show here. -->
 <div id="help" class="hide"></div>
 
-<!-- SQL answer card shows here. -->
+<!-- SQL answer shows here. -->
 <div id="ans" class="hide">
 <div class="ansbar">
-<span class="dots"><i></i><i></i><i></i></span>
+<span class="anstitle">Result</span>
 <span id="badge" class="badge hide"></span>
-<button class="copy" onclick="copySql()">Copy</button>
+<button class="copy" type="button" onclick="copySql()">Copy</button>
 </div>
 <pre id="out"></pre>
 </div>
-
-<p class="foot">Safe by guard • Fast by cache • Clear by clarify</p>
 </main>
+
+<!-- Footer with site notes. -->
+<footer class="foot">
+<p>QueryPilot is a demo. It only runs safe SELECT queries.</p>
+<p>
+<button class="link" type="button" onclick="showLegal('privacy')">Privacy</button>
+<button class="link" type="button" onclick="showLegal('terms')">Terms</button>
+</p>
+<p id="legal" class="hide"></p>
+</footer>
+
 </div>
 </div>
 

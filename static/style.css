@@ -1,267 +1,210 @@
-/* Aurora night theme for QueryPilot. Slightly dark, calm yet creative. */
+/* Plain paper style for QueryPilot. Borders, not shadows. */
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
   font-family: -apple-system, "Segoe UI", Arial, sans-serif;
-  background: #2f3650;
-  color: #232946;
+  background: #f5f2ea;
+  color: #201d16;
   min-height: 100vh;
 }
 
-/* Full stage. */
-.screen {
+.page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding: 56px 20px;
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(700px 380px at 12% 8%, rgba(91, 95, 199, 0.45), transparent 60%),
-    radial-gradient(760px 420px at 88% 12%, rgba(14, 165, 165, 0.35), transparent 60%),
-    radial-gradient(680px 420px at 50% 105%, rgba(255, 171, 145, 0.25), transparent 60%),
-    linear-gradient(180deg, #3a4260 0%, #262c44 100%);
+  padding: 48px 20px;
 }
 
-/* Two slow aurora blobs. */
-.aurora {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.5;
-  pointer-events: none;
-  animation: float 11s ease-in-out infinite alternate;
-}
+.wrap { width: 100%; max-width: 640px; }
 
-.a1 { background: #5b5fc7; top: -120px; left: -100px; }
-.a2 { background: #0ea5a5; top: -60px; right: -110px; animation-delay: 2.5s; }
+/* Masthead. */
+.top { padding: 8px 4px 20px; border-bottom: 2px solid #201d16; }
 
-/* Faint dot grid for data feel. Light dots on dark. */
-.dots-bg {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 22px 22px;
-  pointer-events: none;
-}
-
-.wrap { width: 100%; max-width: 680px; position: relative; }
-
-/* Brand header, no box, big gradient title. */
-.top { text-align: center; padding: 10px 10px 18px; animation: up 0.5s ease; }
-
-.logo {
-  width: 58px;
-  height: 58px;
-  margin: 0 auto 10px;
-  font-size: 30px;
-  line-height: 58px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+.mark {
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 2px solid #201d16;
+  border-radius: 6px;
 }
 
 .top h1 {
   margin: 0;
-  font-size: 38px;
-  letter-spacing: 0.5px;
-  background: linear-gradient(90deg, #ffffff, #c7d2fe, #99f6e4, #ffffff);
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shine 7s linear infinite;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  font-weight: normal;
+  color: #201d16;
 }
 
-.top p { margin: 8px 0 0; font-size: 14px; color: #aab3c9; }
+.sub { margin: 8px 0 0; font-size: 15px; color: #4a453a; }
 
-/* Trust pills. */
-.pills { margin-top: 14px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.meta { margin: 8px 0 0; font-size: 12px; color: #6f6a5e; }
 
-.pill {
-  font-size: 11px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  background: white;
-  border: 1px solid #e2e7f2;
-  box-shadow: 0 2px 8px rgba(35, 41, 70, 0.08);
-  color: #4a5578;
-}
+/* Content sections. */
+.block { padding: 18px 0; border-bottom: 1px solid #ddd5c2; }
 
-/* White floating card. */
-.card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-  border: 1px solid white;
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-  animation: up 0.6s ease;
-}
-
-.card h2 { font-size: 13px; margin: 0 0 12px; color: #7a8499; letter-spacing: 0.5px; }
-
-/* Example grid. */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-/* Grey chips, small, lift on hover. */
-.ex {
+.label {
+  margin: 0 0 10px;
   font-size: 12px;
-  line-height: 1.5;
-  padding: 11px 12px;
-  border-radius: 14px;
-  background: #f1f3f5;
-  border: 1px solid #e2e6ea;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
-  color: #444;
-  cursor: pointer;
-  text-align: left;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6f6a5e;
 }
 
-.ex span { margin-right: 6px; }
-
-.ex:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(35, 41, 70, 0.14);
-  background: #e9ecef;
-}
-
-/* Ask row. */
-.row { display: flex; gap: 10px; margin-top: 20px; }
+/* Input rows. */
+.row { display: flex; gap: 8px; }
 
 .row input {
   flex: 1;
-  padding: 13px 16px;
-  border-radius: 14px;
-  border: 1.5px solid #dfe4ee;
-  background: #f8faff;
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #c9c1ad;
+  background: #fffdf8;
   font-size: 14px;
+  color: #201d16;
   outline: none;
 }
 
-.row input:focus { border-color: #5b5fc7; background: #fff; }
+.row input:focus { border-color: #2e5b3f; }
 
 .row button {
-  padding: 13px 26px;
+  padding: 10px 20px;
   border: 0;
-  border-radius: 14px;
-  background: #232946;
-  color: white;
-  font-weight: bold;
+  border-radius: 6px;
+  background: #2e5b3f;
+  color: #fff;
   font-size: 14px;
   cursor: pointer;
-  transition: transform 0.15s ease;
 }
 
-.row button:hover { transform: translateY(-1px); }
+.row button:hover { background: #234830; }
 
-.hint { font-size: 11px; color: #8a93a8; margin: 8px 2px 0; }
+.note { font-size: 12px; color: #6f6a5e; margin: 8px 2px 0; }
 
-/* Help box. */
+/* Example list. Plain bordered rows. */
+.list { border: 1px solid #ddd5c2; border-radius: 6px; background: #fffdf8; }
+
+.ex {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 13px;
+  text-align: left;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #ece6d4;
+  color: #201d16;
+  cursor: pointer;
+}
+
+.ex:last-child { border-bottom: 0; }
+
+.ex:hover { background: #f1ecdd; }
+
+/* Clarify box. */
 #help {
   margin-top: 16px;
   font-size: 13px;
-  line-height: 1.7;
+  line-height: 1.6;
   padding: 12px 14px;
-  border-radius: 14px;
-  background: #fff8e8;
-  border: 1px solid #ecd9ac;
+  border-radius: 6px;
+  background: #fbf3df;
+  border: 1px solid #d9c48f;
 }
 
-/* Answer terminal card. */
+.opt { margin: 4px 6px 4px 0; }
+
+/* Answer panel. Plain bordered box, not a terminal. */
 #ans {
   margin-top: 16px;
-  border-radius: 14px;
+  border-radius: 6px;
+  border: 1px solid #c9c1ad;
+  background: #fffdf8;
   overflow: hidden;
-  background: #161a2e;
-  box-shadow: 0 12px 30px rgba(22, 26, 46, 0.35);
-  animation: up 0.3s ease;
 }
 
 .ansbar {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 12px;
-  background: #20264a;
+  padding: 8px 12px;
+  border-bottom: 1px solid #ddd5c2;
 }
 
-.dots { display: flex; gap: 5px; }
-.dots i { width: 10px; height: 10px; border-radius: 50%; background: #4a5578; display: block; }
-.dots i:first-child { background: #e0655a; }
-.dots i:nth-child(2) { background: #e8b64c; }
-.dots i:nth-child(3) { background: #5fc46a; }
+.anstitle { font-size: 12px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; color: #6f6a5e; }
 
 .badge {
-  font-size: 10px;
-  padding: 3px 10px;
-  border-radius: 12px;
-  background: #0ea5a5;
-  color: white;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #c9c1ad;
+  color: #4a453a;
 }
 
 .copy {
   margin-left: auto;
-  font-size: 11px;
-  padding: 5px 12px;
-  border-radius: 10px;
-  border: 1px solid #4a5578;
-  background: transparent;
-  color: #dfe6ff;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid #c9c1ad;
+  background: #fffdf8;
+  color: #201d16;
   cursor: pointer;
 }
 
+.copy:hover { background: #f1ecdd; }
+
 #out {
   margin: 0;
-  padding: 16px;
-  color: #d8f3dc;
+  padding: 14px;
   font-size: 13px;
   line-height: 1.7;
   white-space: pre-wrap;
-  font-family: monospace;
+  font-family: ui-monospace, "Courier New", monospace;
+  color: #201d16;
 }
 
-.foot {
-  text-align: center;
-  font-size: 11px;
-  color: #8a93a8;
-  margin: 18px 0 0;
-  letter-spacing: 0.3px;
+/* Skeleton loading bars. */
+.sk {
+  display: block;
+  height: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  background: #e4ddc9;
+  animation: pulse 1.2s ease-in-out infinite;
 }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Footer. */
+.foot { padding: 18px 4px 8px; font-size: 12px; color: #6f6a5e; }
+
+.link {
+  background: none;
+  border: 0;
+  padding: 0 10px 0 0;
+  font-size: 12px;
+  color: #2e5b3f;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#legal { font-size: 12px; color: #4a453a; }
 
 .hide { display: none; }
-.opt { margin: 5px; }
 
-/* Rise motion. */
-@keyframes up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Slow blob float. */
-@keyframes float {
-  from { transform: translateY(-14px); }
-  to { transform: translateY(14px); }
-}
-
-/* Title shine slide. */
-@keyframes shine {
-  to { background-position: 220% center; }
-}
-
-/* One column on phone. */
+/* One column rows on phone. */
 @media (max-width: 520px) {
-  .grid { grid-template-columns: 1fr; }
-  .screen { padding: 30px 12px; }
-  .top h1 { font-size: 30px; }
+  .row { flex-direction: column; }
+  .page { padding: 28px 14px; }
+  .top h1 { font-size: 29px; }
 }

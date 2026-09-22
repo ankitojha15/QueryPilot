@@ -1,27 +1,21 @@
-// Premium UI logic for QueryPilot.
+// Plain UI logic for QueryPilot.
 
-// Fix Enter key + rotating hint text.
+// Saved login token. Empty means logged out.
+let TOKEN = "";
+
+// Enter key submits the right box.
 document.addEventListener("DOMContentLoaded", () => {
   const box = document.getElementById("q");
   box.addEventListener("keydown", (e) => {
     if (e.key === "Enter") ask();
   });
-  // Rotate placeholder for creative touch.
-  const hints = [
-    "Ask question...",
-    "Try: last 30 days city-wise orders?...",
-    "Try: where are my orders?...",
-    "Try: show paid orders?...",
-  ];
-  let i = 0;
-  setInterval(() => {
-    if (!box.value) box.placeholder = hints[i++ % hints.length];
-  }, 3000);
 });
 
 // Fill input on example click.
-// Saved login token. Empty means logged out.
-let TOKEN = "";
+function fill(text) {
+  document.getElementById("q").value = text;
+  ask();
+}
 
 // Login with name and password.
 async function doLogin() {
@@ -31,10 +25,10 @@ async function doLogin() {
   const who = document.getElementById("who");
   if (d.ok) {
     TOKEN = d.token;
-    who.innerText = "Logged in: " + name + " (ask now)";
+    who.innerText = "Signed in as " + name + ". You can ask now.";
   } else {
     TOKEN = "";
-    who.innerText = "Login failed: " + d.message;
+    who.innerText = "Sign in failed: " + d.message;
   }
 }
 
@@ -44,48 +38,46 @@ async function ask(extra) {
   if (!q) return;
   if (extra) q = q + " " + extra;
   setBadge("");
-  showOut("● ● ● thinking...");
+  showLoading();
   // 1. Check if question needs help.
   const c = await fetch("/clarify?q=" + encodeURIComponent(q)).then((r) => r.json());
-  // 0. Destructive request is blocked, no SQL runs.
+  // 2. Destructive request is blocked, no SQL runs.
   if (c.status === "blocked") {
     const box = document.getElementById("help");
     box.classList.remove("hide");
-    box.innerHTML = "<b>⛔ " + c.message + "</b>";
-    showOut("Q: " + q + "\n\nBlocked: no SQL run.");
+    box.innerHTML = "<b>Refused.</b> " + c.message;
+    showOut("Q: " + q + "\n\nRefused: no SQL was run.");
     return;
   }
   if (c.status === "need_clarification" || c.status === "need_approval") {
     showHelp(c.message, c.options, q);
-    showOut("Pick one choice above ⬆");
+    showOut("Q: " + q + "\n\nPlease pick one choice above.");
     return;
   }
-  // 2. Clear question goes to query.
+  // 3. Clear question goes to query.
   runQuery(q);
 }
 
-// Run final SQL query. Shows only clean SQL, hides ok flag.
-// Run final SQL query. Shows only clean SQL, hides ok flag.
+// Run final SQL query. Shows only clean SQL.
 async function runQuery(q) {
   if (!TOKEN) {
-    showOut("Q: " + q + "\n\nPlease login first.");
+    showOut("Q: " + q + "\n\nPlease sign in first.");
     return;
   }
   setBadge("");
-  showOut("Q: " + q + "\n\n● ● ● thinking...");
+  showLoading();
   const d = await fetch("/query?q=" + encodeURIComponent(q) + "&token=" + TOKEN).then((r) => r.json());
   if (d.ok === false) {
-    showOut("Q: " + q + "\n\n" + (d.message || "login first"));
+    showOut("Q: " + q + "\n\n" + (d.message || "Please sign in first."));
     return;
   }
-  if (d.cached) setBadge("⚡ cached");
-  else setBadge("✓ fresh");
+  if (d.cached) setBadge("cached");
+  else setBadge("fresh");
   const sql = pickSql(d);
   showOut("Q: " + q + "\n\n" + sql);
 }
 
-// Pick only SQL part. Hides question and ok flag.
-// Pick only SQL part. Hides question and ok flag.
+// Pick only the SQL part from the answer.
 function pickSql(d) {
   let t = "";
   if (d.sql) t = d.sql;
@@ -93,7 +85,7 @@ function pickSql(d) {
     const m = d.result.match(/SELECT[\s\S]*?;/);
     t = m ? m[0] : d.result;
   }
-  // Cached text has \n as letters, make them real lines.
+  // Cached text keeps newlines as characters, turn them back.
   return t.replace(/\\n/g, "\n").replace(/\\"/g, '"').replace(/\\'/g, "'");
 }
 
@@ -118,16 +110,22 @@ function askChoice(q, choice) {
   runQuery(q + " " + choice);
 }
 
-// Copy SQL to clipboard with tick.
+// Copy SQL to clipboard.
 function copySql() {
   const t = document.getElementById("out").innerText;
   navigator.clipboard.writeText(t);
   const b = document.querySelector(".copy");
-  b.innerText = "Copied ✓";
+  b.innerText = "Copied";
   setTimeout(() => (b.innerText = "Copy"), 1500);
 }
 
-// Show output text in card.
+// Show skeleton bars while waiting.
+function showLoading() {
+  document.getElementById("ans").classList.remove("hide");
+  document.getElementById("out").innerHTML = '<span class="sk"></span><span class="sk"></span><span class="sk"></span>';
+}
+
+// Show output text.
 function showOut(text) {
   document.getElementById("ans").classList.remove("hide");
   document.getElementById("out").innerText = text;
@@ -143,4 +141,15 @@ function setBadge(text) {
   }
   b.classList.remove("hide");
   b.innerText = text;
+}
+
+// Show short site notes for Privacy and Terms.
+function showLegal(which) {
+  const box = document.getElementById("legal");
+  box.classList.remove("hide");
+  if (which === "privacy") {
+    box.innerText = "Privacy: demo logins only (amit, neha, ravi). Questions are sent to the SQL API and cached for 5 minutes. No tracking, no analytics.";
+  } else {
+    box.innerText = "Terms: demo project for learning. Only safe SELECT queries run. Destructive requests are refused. Sample data only.";
+  }
 }
