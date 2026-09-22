@@ -7,6 +7,7 @@ import redis
 from graph import run_q
 from clarify import check_question
 from auth import login as user_login, get_org
+from db import run_sql
 
 # Make API.
 app = FastAPI(title="QueryPilot")
@@ -46,21 +47,27 @@ except Exception:
     cache = None
 
 @app.get("/query")
-def query(q: str, token: str = ""):
+def query(q: str, token: str = "", approved: str = ""):
     """Run question to SQL for logged in org."""
     # 0. Token gives org, chat never gives org.
     org = get_org(token)
     if org == 0:
         return {"ok": False, "message": "login first", "sql": ""}
+    yes = approved == "yes"
     # 1. Check cache first. Key has org so orgs never share.
-    key = f"{org}:{q}"
+    key = f"{org}:{q}:{approved}"
     if cache:
         old = cache.get(key)
         if old:
             return {"cached": True, "result": old}
     # 2. Run graph if not found.
-    out = run_q(q, org)
-    # 3. Save for next time.
+    out = run_q(q, org, yes)
+    # 3. Run safe SQL and attach rows.
+    if out.get("ok"):
+        cols, rows = run_sql(out.get("sql", ""))
+        out["cols"] = cols
+        out["rows"] = rows
+    # 4. Save for next time.
     if cache:
         cache.set(key, str(out), ex=300)
     return out
