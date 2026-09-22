@@ -8,6 +8,7 @@ from guard import check_sql
 class State(TypedDict):
     question: str
     org_id: int
+    approved: bool
     sql: str
     ok: bool
 
@@ -17,7 +18,7 @@ def step_make(s: State):
 
 # Step 2: check SQL.
 def step_check(s: State):
-    ok, _, safe = check_sql(s["sql"], s.get("org_id", 1))
+    ok, _, safe = check_sql(s["sql"], s.get("org_id", 1), s.get("approved", False))
     return {"sql": safe, "ok": ok}
 
 # Build graph.
@@ -29,6 +30,6 @@ g.add_edge("make", "check")
 g.add_edge("check", END)
 app = g.compile()
 
-def run_q(question: str, org_id: int = 1):
+def run_q(question: str, org_id: int = 1, approved: bool = False):
     """Run full flow."""
-    return app.invoke({"question": question, "org_id": org_id})
+    return app.invoke({"question": question, "org_id": org_id, "approved": approved})
