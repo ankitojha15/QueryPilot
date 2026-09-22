@@ -39,4 +39,5 @@ INSERT INTO products (org_id, name, price) VALUES
 INSERT INTO orders (org_id, customer_id, product_id, amount, status, created_at) VALUES
 (1, 1, 1, 2000, 'paid', '2026-09-17'),
 (1, 2, 2, 1500, 'paid', '2026-09-16'),
-(1, 1, 2, 1500, 'refund', '2026-09-18');
+(1, 1, 2, 1500, 'refund', '2026-09-18'),
+(2, 3, 2, 1500, 'paid', '2026-09-19');
