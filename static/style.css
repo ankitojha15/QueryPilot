@@ -4,8 +4,8 @@
 body {
   margin: 0;
   font-family: -apple-system, "Segoe UI", Arial, sans-serif;
-  background: #f5f2ea;
-  color: #201d16;
+  background: #4a4c50;
+  color: #232946;
   min-height: 100vh;
 }
 
@@ -16,7 +16,15 @@ body {
   padding: 48px 20px;
 }
 
-.wrap { width: 100%; max-width: 640px; }
+.wrap {
+  width: 100%;
+  max-width: 640px;
+  height: fit-content;
+  background: #f5f2ea;
+  border: 1px solid #26282c;
+  border-radius: 8px;
+  padding: 26px 26px 20px;
+}
 
 /* Masthead. */
 .top { padding: 8px 4px 20px; border-bottom: 2px solid #201d16; }
@@ -87,25 +95,25 @@ body {
 
 .note { font-size: 12px; color: #6f6a5e; margin: 8px 2px 0; }
 
-/* Example list. Plain bordered rows. */
-.list { border: 1px solid #ddd5c2; border-radius: 6px; background: #fffdf8; }
+/* Suggestion list. Looks optional, not part of the form. */
+.list { padding: 2px 0 0; }
 
 .ex {
-  display: block;
-  width: 100%;
-  padding: 10px 12px;
-  font-size: 13px;
+  display: inline-block;
+  width: auto;
+  margin: 0 8px 8px 0;
+  padding: 5px 11px;
+  font-size: 12px;
+  font-style: italic;
   text-align: left;
   background: none;
-  border: 0;
-  border-bottom: 1px solid #ece6d4;
-  color: #201d16;
+  border: 1px dashed #c9c1ad;
+  border-radius: 20px;
+  color: #6f6a5e;
   cursor: pointer;
 }
 
-.ex:last-child { border-bottom: 0; }
-
-.ex:hover { background: #f1ecdd; }
+.ex:hover { background: #f1ecdd; color: #201d16; }
 
 /* Clarify box. */
 #help {
