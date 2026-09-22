@@ -10,7 +10,7 @@ BLOCKED_WORDS = ["drop", "delete", "update", "insert", "alter", "truncate"]
 PII_COLUMNS = ["email"]
 
 
-def check_sql(sql: str, org_id: int):
+def check_sql(sql: str, org_id: int, approved: bool = False):
     """Check SQL and return (is_ok, message, safe_sql)."""
     low = sql.lower().strip()
 
@@ -24,8 +24,9 @@ def check_sql(sql: str, org_id: int):
             return False, f"Blocked word found: {word}", ""
 
     # 3. Block PII columns.
+        # 3. Block PII columns, unless user approved.
     for col in PII_COLUMNS:
-        if col in low:
+        if col in low and not approved:
             return False, f"PII column blocked: {col}", ""
 
     # 4. org_id filter is compulsory.
@@ -43,6 +44,6 @@ def check_sql(sql: str, org_id: int):
 
     # 6. Save to audit log.
     with open("audit.log", "a") as log:
-        log.write(f"org={org_id} | {sql}\n")
-
+        tag = "approved" if approved else "ok"
+        log.write(f"org={org_id} {tag} | {sql}\n")
     return True, "ok", sql
